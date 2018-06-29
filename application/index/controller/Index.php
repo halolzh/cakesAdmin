@@ -1,8 +1,10 @@
 <?php
 namespace app\index\controller;
+use think\Db;
 
 class Index {
 	public function index() {
-		echo "index1223";
+		$data = Db::table('cakes')->select();
+		return json_encode($data);
 	}
 }

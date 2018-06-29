@@ -56,14 +56,14 @@
             <td>{$vo.typeName}</td>
             <td>{$vo.introduce}</td>
             <td>{$vo.price}</td>
-            <td>2017-01-01 11:11:42</td>
+            <td>2017-01-01 11:11:42{$editUrl}</td>
             <td class="td-status">
               <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
             <td class="td-manage">
               <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
                 <i class="layui-icon">&#xe601;</i>
               </a>
-              <a title="编辑"  onclick="x_admin_show('编辑','member-edit.html',600,400)" href="javascript:;">
+              <a title="编辑"  onclick="x_admin_show('编辑', `{:url('products/edit')}?id=`+{$vo.id} ,600,400)" href="javascript:;">
                 <i class="layui-icon">&#xe642;</i>
               </a>
               <a onclick="x_admin_show('修改密码','member-password.html',600,400)" title="修改密码" href="javascript:;">
@@ -100,6 +100,10 @@
           elem: '#end' //指定元素
         });
       });
+
+      function products_edit(obj, url) {
+        xadmin_show('编辑', url, 600, 400);
+      }
 
        /*用户-停用*/
       function member_stop(obj,id){

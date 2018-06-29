@@ -15,7 +15,9 @@ class Products extends Base {
 		$list = Cakes::paginate(10);
 		$this->assign('list', $list);
 
-		dump($list);
+		$editUrl = '{:url(products/edit)}';
+
+		$this->assign('editUrl', $editUrl);
 		
 		return $this->view->fetch('products_list');
 	}
@@ -64,7 +66,8 @@ class Products extends Base {
 	 * @return \think\Response
 	 */
 	public function edit($id) {
-		//
+		dump($id);
+		return $this->view->fetch('products_edit');	
 	}
 
 	/**
