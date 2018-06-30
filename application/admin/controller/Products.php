@@ -2,23 +2,26 @@
 
 namespace app\admin\controller;
 use app\admin\common\Base;
-use think\Controller;
-use think\Request;
 use app\admin\model\Cakes;
+use think\Controller;
+use think\Db;
+use think\Request;
 
 class Products extends Base {
+
+	public $list;
 	/**
 	 * 产品列表
 	 */
 	public function index() {
 		//
-		$list = Cakes::paginate(10);
+		$list = Cakes::order('id desc')->paginate(10);
 		$this->assign('list', $list);
 
 		$editUrl = '{:url(products/edit)}';
 
 		$this->assign('editUrl', $editUrl);
-		
+
 		return $this->view->fetch('products_list');
 	}
 
@@ -66,8 +69,25 @@ class Products extends Base {
 	 * @return \think\Response
 	 */
 	public function edit($id) {
-		dump($id);
-		return $this->view->fetch('products_edit');	
+
+		$typeLists = Db::table("productType")->select();
+
+		$this->assign("typeLists", $typeLists);
+
+		return $this->view->fetch('products_edit');
+	}
+
+	public function editcommit(Request $request) {
+		$data = $request->param();
+		$imgSrc = $data['imgSrc'];
+		$type = $data['type'];
+		$productName = "1323"; //$data['productName'];
+
+		//echo $imgSrc . ' ' . $productName;
+
+		$status = 1;
+		$message = "ok";
+		return ['imgSrc' => $imgSrc, 'productName' => $productName, 'type' => $type];
 	}
 
 	/**
